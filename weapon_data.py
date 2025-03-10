@@ -71,4 +71,33 @@ weapons = {
         "special_effects": "high critical hits"
     },
 
+    "Knight's Greatsword": {
+        "base_damage": 75,
+        "upgrade_scaling": 9,
+        "requirements": {"Strength": 18, "Dexterity": 12},
+        "weight": 10,
+        "critical_multiplier": 1.1,
+        "attack_speed": "slow",
+        "special_effects": "None"
+    },
 
+    "Spear": {
+        "base_damage": 45,
+        "upgrade_scaling": 5,
+        "requirements": {"Strength": 12, "Dexterity": 14},
+        "weight": 6.0,
+        "critical_multiplier": 1.3
+        "attack_speed": "medium",
+        "special_effect": "long reach"
+    },
+
+    "Golden Halberd": {
+        "base_damage": 90,
+        "upgrade_scaling": 10,
+        "requirements": {"Strength": 20, "Dexterity": 14, "Faith": 12},
+        "weight": 13.0,
+        "critical_multiplier": 1.1,
+        "attack_speed": "slow",
+        "special_effect": "slight holy damage"
+    }
+}
