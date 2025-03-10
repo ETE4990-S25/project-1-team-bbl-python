@@ -23,3 +23,21 @@ armor = {
     "Prophet Blindfold": {"defense": 4, "weight": 2.0, "type": "light", "dropped_by": "Prophet (Starting)"},
     "Prophet Robe": {"defense": 6, "weight": 3.5, "type": "light", "dropped_by": "Prophet (Starting)"},
     "Prophet Trousers": {"defense": 5, "weight": 3.0, "type": "light", "dropped_by": "Prophet (Starting)"},
+    
+    #Enemy Dropped Armor 
+    "Bandit Mask": {"defense":6, "weight": 3.0, "type": "light", "dropped_by": "Bandit"},
+    "Bandit Vest": {"defense":8, "weight": 4.0, "type": "light", "dropped_by": "Bandit"},
+    "Bandit Gloves": {"defense":6, "weight": 2.5, "type": "light", "dropped_by": "Bandit"},
+    "Bandit Boots": {"defense":6, "weight": 3.0, "type": "light", "dropped_by": "Bandit"},
+    
+    "Footman Helm": {"defense":7, "weight": 3.5, "type": "light", "dropped_by": "Footman"},
+    "Footman Armor": {"defense":10, "weight": 5.0, "type": "light", "dropped_by": "Footman"},
+    "Footman Gauntlets": {"defense":7, "weight": 3.5, "type": "light", "dropped_by": "Footman"},
+    "Footman Greaves": {"defense":7, "weight": 4.0, "type": "light", "dropped_by": "Footman"},
+    
+    "Soldier Helm": {"defense":10, "weight": 5.0, "type": "light", "dropped_by": "Footman"},
+    "Soldier Armor": {"defense":14, "weight": 7.0, "type": "light", "dropped_by": "Footman"},
+    "Soldier Gauntlers": {"defense":10, "weight": 4.5, "type": "light", "dropped_by": "Footman"},
+    "Soldier Greaves": {"defense":10, "weight": 5.5, "type": "light", "dropped_by": "Footman"},
+    
+    
