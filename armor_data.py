@@ -40,4 +40,8 @@ armor = {
     "Soldier Gauntlers": {"defense":10, "weight": 4.5, "type": "light", "dropped_by": "Footman"},
     "Soldier Greaves": {"defense":10, "weight": 5.5, "type": "light", "dropped_by": "Footman"},
     
+    "Knight Helm": {"defense":12, "weight": 6.5, "type": "light", "dropped_by": "Footman"},
+    "Knight Helm": {"defense":18, "weight": 9.0, "type": "light", "dropped_by": "Footman"},
+    "Knight Helm": {"defense":12, "weight": 5.5, "type": "light", "dropped_by": "Footman"},
+    "Knight Helm": {"defense":12, "weight": 6.0, "type": "light", "dropped_by": "Footman"},
     
