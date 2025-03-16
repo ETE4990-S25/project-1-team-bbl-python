@@ -282,3 +282,71 @@ def dungeons():
             input("\nPress Enter to return to the dungeon entrance...")
             leave_church()   #Return to area selection
             return
+
+def tree_lined_oasis():
+    """Handles entry into the Tree-Lined Oasis and sets up the encounter with the Tree Sentinel."""
+    os.system("cls" if os.name == "nt" else "clear")
+    print("\nYou step into the Tree-Lined Oasis.")
+    print("The air is still, too peaceful. The only sound is the distant rustling of leaves.")
+    print("Ahead, golden armor catches the light. A knight—silent, unmoving—watches.")
+    print("No roar. No battle cry. Just quiet, suffocating tension.")
+    print("The ground trembles beneath you, as if warning you to turn back.")
+    print("\nA message lingers in your mind:")
+    print("   'An impossible fight lies ahead. Do you continue?'")
+
+    while True:
+        print("\n[1] Face the Tree Sentinel.")
+        print("[2] Return to the Site of Grace.")
+        
+        choice = input("\nWhat will you do? ").strip()
+        
+        if choice == "1":
+            print("\nYou step forward. The Tree Sentinel lowers his halberd.")
+            print("The silence breaks.")
+            input("\nPress Enter to face him...")
+            encounter_tree_sentinel()
+            break
+        elif choice == "2":
+            print("\nYou hesitate, then turn back. Some battles are not meant to be fought yet.")
+            input("\nPress Enter to return to the Site of Grace...")
+            light_of_grace()
+            break
+
+        else:
+            print("\nIndecision will not save you. Choose.")
+
+def light_of_grace():
+    """Handles healing, upgrades, and inventory access."""
+    os.system("cls" if os.name == "nt" else "clear")
+    print("\nYou rest at the Light of Grace.")
+    print("Your health, stamina, and FP are fully restored.") 
+    
+    #Fully restore the player's stats
+    player.hp = player.max_hp
+    player.stamina = player.max_stamina
+    player.fp = player.max_fp
+
+    print("\n[All stats restored.]")
+
+    while True:
+        os.system("cls" if os.name == "nt" else "clear")  
+        print("\nYou are at the Light of Grace. What would you like to do?")
+        print("1. Upgrade Attributes (Cost: 100 Runes)")
+        print("2. Open Inventory (Equip Weapons, Armor, Talismans, Use Potions)")
+        print("3. Exit Light of Grace")
+
+        choice = input("\nSelect an option: ").strip()
+
+        if choice == "1":
+            upgrade_attributes()
+
+        elif choice == "2":
+            display_inventory() 
+            
+        elif choice == "3":
+            print("\nYou step away from the Light of Grace, ready to continue your journey.")
+            leave_church()   #Ensures the player is correctly sent to area selection
+            return   #Properly exits the function
+        else:
+            print("\nInvalid option. Try again.")
+            input("\nPress Enter to continue...")
