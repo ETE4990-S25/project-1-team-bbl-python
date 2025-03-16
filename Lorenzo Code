@@ -282,4 +282,3 @@ def dungeons():
             input("\nPress Enter to return to the dungeon entrance...")
             leave_church()   #Return to area selection
             return
-
