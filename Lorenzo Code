@@ -1,3 +1,4 @@
+
 from weapon_data import weapons
 from armor_data import armor
 from talismans_data import talismans
@@ -125,7 +126,6 @@ def encounter_tree_sentinel():
                 else:
                     print("\nInvalid option. Try again.")
 
-
 def encounter_skeleton():
     """Starts the battle sequence against the skeleton with a brief introduction."""
     os.system("cls" if os.name == "nt" else "clear")
@@ -179,7 +179,8 @@ def encounter_skeleton():
             print("\nPress Enter to continue forward...")
             input() 
             os.system("cls" if os.name == "nt" else "clear")
-            church_of_marika()return
+            church_of_marika()
+            return
 
         #**Blocking**
         if action == "3":  
@@ -214,3 +215,71 @@ def encounter_skeleton():
                 print("\nFailed to flee The Skeleton slashes at you as you turn your back")
                 attack_damage, attack_message = skeleton.attack()
                 print(attack_message)
+
+def open_inventory():
+
+    global player_inventory
+    print("\n **Inventory**")
+    print("====================")
+    print(" Weapons:", player_inventory["weapons"] if player_inventory["weapons"] else "None")
+    print(" Armor:", player_inventory["armor"] if player_inventory["armor"] else "None")
+    print( "Talismans:", player_inventory["talismans"] if player_inventory["talismans"] else "None")
+    print(" Potions:")
+    for potion, qty in player_inventory["potions"].items():
+        print(f"   -{potion}: {qty}")
+    print("====================")
+    input("\nPress Enter to close inventory...")
+
+def dungeons():
+    """Handles the randomized dungeon chest selection."""
+    os.system("cls" if os.name == "nt" else "clear")
+    print("\nYou enter the dimly lit dungeon, the air damp and heavy with mystery.")
+    print("Before you, four ancient chests rest in the gloom, their contents unknown.")
+
+    #assigns talismans to labels, and I added the randomized chest positions
+    talisman_keys = list(talismans.keys())
+    random.shuffle(talisman_keys)   #Shuffle the actual talismans
+    chest_contents = ["trap"] + talisman_keys  # 1 trap  3 randomized talismans
+    random.shuffle(chest_contents)   #Shuffle their placement in the chest_contents
+    
+    opened_chests = set()   #Tracks which chests have been opened
+    while True:
+        print("\nChests: [1] [2] [3] [4]")
+        choice = input("\nChoose a chest to open (1-4) or type 'leave' to return: ").strip().lower()
+        
+        if choice == "leave":
+            print("\nYou step away from the chests and return to the dungeon entrance.")
+            input("\nPress Enter to continue...")
+            leave_church()   #Return to area selection instead of quitting
+            return
+        if choice not in ["1", "2", "3", "4"]:
+            print("\nInvalid choice. Choose a chest between 1 and 4.")
+            continue
+        
+        chest_number = int(choice) - 1
+        if chest_number in opened_chests:
+            print("\nYou've already opened this chest. Choose another.")
+            continue
+        opened_chests.add(chest_number)
+        result = chest_contents[chest_number]
+
+        if result == "trap":
+            print("\nAs you lift the lid, a sudden burst of light engulfs you")
+            print("A powerful force pulls you away...")
+            input("\nPress Enter to continue...")
+            encounter_tree_sentinel() #Triggers boss battle
+            return
+        
+        else:
+            talisman_key = result  # The shuffled talisman KeyboardInterrupt
+            print(f"\nYou open the chest and find the **{talisman_key}**!")
+            print(f"\n{talismans[talisman_key]['description']}")
+            player_inventory["talismans"].append(talisman_key)
+            print("\nThe talisman has been added to your inventory.")
+                         
+        if len(opened_chests) == 4:
+            print("\nYou have opened all the chests. There's nothing left here.")
+            input("\nPress Enter to return to the dungeon entrance...")
+            leave_church()   #Return to area selection
+            return
+
