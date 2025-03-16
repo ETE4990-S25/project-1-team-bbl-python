@@ -1,0 +1,216 @@
+from weapon_data import weapons
+from armor_data import armor
+from talismans_data import talismans
+from enemy_data import Bandit 
+from enemy_data import Footman
+from enemy_data import Knight
+from enemy_data import Soldier
+from enemy_data import TreeSentinel
+from enemy_data import Skeleton
+import os
+import random
+import random
+import time
+import sys
+import select
+
+
+
+def encounter_tree_sentinel():
+
+        """Handles the battle against the Tree Sentinel, ensuring proper mechanics."""
+        global player  
+        os.system("cls" if os.name == "nt" else "clear")
+        print("\nThe Tree Sentinel stands in your path, its golden armor gleaming under the sun.")
+        print("Without hesitation, it prepares to strike.")
+        input("\nPress Enter to face the Tree Sentinel...")
+        tree_sentinel = TreeSentinel()
+
+        while tree_sentinel.hp > 0 and player.hp > 0:
+            os.system("cls" if os.name == "nt" else "clear")
+            print(f"\nBoss: tree_sentinel.name | HP: [tree_sentinel.hp/tree_sentinel.max_hp]")
+            print(f"Your HP: [player.hp/player.max_hp] | Stamina: [player.stamina/player.max_stamina]")
+            print("\nActions: [1] Light Attack | [2] Heavy Attack | [3] Block | [4] Use Potion | [5] Flee")
+                        
+            choice = input("\nSelect an action: ").strip()
+            if choice == "1":
+                damage, message = player.attack("light")
+                print(f"\nmessage")  
+                tree_sentinel.take_damage(damage, "light")
+            
+            elif choice == "2":
+                damage, message = player.attack("heavy")
+                print(f"\nmessage")  
+                tree_sentinel.take_damage(damage, "heavy")
+
+            elif choice == "3":  #Block
+                print("\nYou raise your shield and brace for impact.")
+                time.sleep(1)
+                reduced_damage = player.block(tree_sentinel)
+                print(f"\nYou blocked the attack and took reduced_damage damage.")
+                input("\nPress Enter to continue...")
+                continue
+
+            elif choice == "4": #use potion
+                if player.use_potion():
+                    print(f"\nYou now have {player.hp}/{player.max_hp} HP remaining.")
+                else:
+                    print("\nNo potions left")
+                    input("\nPress Enter to continue...")
+                    continue
+            elif choice == "5":  # **Flee Always Fails & Deals Full Damage**
+                print("\nYou attempt to flee, but the Tree Sentinel charges forward—ESCAPE IS IMPOSSIBLE")
+                attack_damage, attack_message = tree_sentinel.attack()
+                print(attack_message)
+                player.hp -= attack_damage   #Full damage taken
+                print(f"\nYou take attack_damage damage as punishment for trying to flee")
+                input("\nPress Enter to continue...")
+                continue
+
+             #**Tree Sentinel's Turn (You Can Still Dodge Normally)**'
+            if tree_sentinel.hp > 0:
+                print("\nThe Tree Sentinel prepares to strike")
+                attack_damage, attack_message = tree_sentinel.attack()
+                print(attack_message)
+            
+                dodge_time = detect_dodge()
+                damage_taken = evaluate_dodge(dodge_time, attack_damage)
+                
+                if damage_taken == 0:
+                    print("\nYou evade the attack with perfect timing")
+                else:
+                    print(f"\nThe Tree Sentinel's attack lands You take damage_taken damage.")
+                    player.hp -= damage_taken
+            #Force plater to site of grace after death
+            if player.hp <= 0:
+                print("\nYou have been defeated... The world fades to black.")
+                input("\nPress Enter to return to the Light of Grace...")
+                light_of_grace()   #**FORCE player to Site of Grace**
+                return #Exit after immediately
+            
+            input("\nPress Enter to continue")
+        #If player wins
+        if tree_sentinel.hp <= 0:
+            print("\nThe Tree Sentinel collapses, its massive form crashing to the ground.")
+            print("\nYou have defeated the Tree Sentinel")
+            print("\nYou gained 1000 runes")
+            player.runes = 1000
+            
+            loot = tree_sentinel.drop_loot()
+            if loot:
+                 print(f"You found a loot")
+            print("\nThe overwhelming silence returns... You should return to the Light of Grace.")
+
+            #post fight menu
+            while True:
+                print("\nWhat would you like to do?")
+                print("[1] Return to the Site of Grace (Recommended)")
+                print("[2] Continue Exploring")
+                print("[3] Select a Different Area")
+
+                choice = input("\nEnter your choice: ").strip()
+
+                if choice == "1":
+                    print("\nYou return to the Light of Grace to recover and upgrade.")
+                    light_of_grace()  
+                    return
+                elif choice == "2":
+                        print("\nYou remain in the field, ready for your next challenge.")
+                        leave_church()  
+                        return
+                elif choice == "3":
+                    print("\nYou look around, deciding where to go next...")
+                    leave_church()  
+                    return
+                else:
+                    print("\nInvalid option. Try again.")
+
+
+def encounter_skeleton():
+    """Starts the battle sequence against the skeleton with a brief introduction."""
+    os.system("cls" if os.name == "nt" else "clear")
+
+    #Skeleton intro scene
+    print("\nAs you step forward, the air grows cold...")
+    time.sleep(1)
+    print("\nA chilling presence looms nearby.")
+    time.sleep(1)
+    print("\nFrom the shadows, bones rattle, and a skeletal warrior emerges")
+    print("\nIts hollow eyes lock onto you as it raises a rusted blade.")
+    input("\nPress [Enter] to prepare for battle...")
+
+    #clearing screen before battle
+    os.system("cls" if os.name == "nt" else "clear")
+
+    skeleton = Skeleton()
+
+    while skeleton.hp > 0 and player.hp > 0:
+        os.system("cls" if os.name == "nt" else "clear")
+
+        #show updated stats
+        player.display_bars()
+        print(f"\nEnemy: skeleton.name | HP: [skeleton.hp/skeleton.max_hp]")
+
+        print("\nActions: [1] Light Attack | [2] Heavy Attack | [3] Block | [4] Use Potion | [5] Flee | [6] Quit")
+        action = input("\nSelect an action: ").strip()
+
+        if action == "6":
+            print("\nYou fled from battle.")
+            return        
+        
+        #handle attacks
+        if action == "1":
+            damage, message = player.attack("light")
+            print(f"\nmessage")
+            skeleton.take_damage(damage, "light")
+            time.sleep(1)
+
+        elif action == "2":
+            damage, message = player.attack("heavy")
+            print(f"\nmessage")
+            skeleton.take_damage(damage, "heavy")
+            time.sleep(1)
+
+        if skeleton.hp <= 0:
+            print("\nThe Skeleton collapses into a pile of bones. Enemy Slain.")
+            player.runes = 100  
+            print(f"\nYou gained 100 runes Total Runes: player.runes")
+
+            print("\nPress Enter to continue forward...")
+            input() 
+            os.system("cls" if os.name == "nt" else "clear")
+            church_of_marika()return
+
+        #**Blocking**
+        if action == "3":  
+            print("\nYou raise your shield and brace for impact.")
+            time.sleep(1)
+            reduced_damage = player.block(skeleton)  
+            print(f"\nYou blocked the attack and took reduced_damage damage.")
+            
+            input("\nPress Enter to continue...")
+            continue   #Skips the enemy's turn'
+
+
+            #**Using Potion**'
+                        
+        elif action == "4":
+            if player.use_potion():
+                print(f"\nYou now have {player.hp}/{player.max_hp} HP remaining.")
+            else:
+                print("\nNo potions left")                        
+            input("\nPress Enter to continue...")
+            continue  
+                         
+             # **Flee Attempt (Fails 50% of the Time)**
+                        
+        elif action == "5":
+            if random.random() < 0.5:
+                print("\nYou successfully flee to the Light of Grace")
+                input("\nPress Enter to continue...")
+                light_of_grace()
+                return
+            else:
+                print("\nFailed to flee The Skeleton slashes at you as you turn your back")
+                attack_damage, attack_message = skeleton.attack()
+                print(attack_message)
