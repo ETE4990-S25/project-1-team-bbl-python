@@ -308,7 +308,58 @@ def fade_in_text(text, delay=3):
         time.sleep(delay)            
             
 
+class Prophet:
+    def __init__(self):
+        self.level = 7
+        self.vigor = 10
+        self.mind = 14
+        self.endurance = 8
+        self.strength = 11
+        self.dexterity = 10
+        self.intelligence = 7
+        self.faith = 16
+        self.arcane = 10
+        self.weapons = ["Short Spear", "Finger Seal"]
+        self.shield = "Rickety Wooden Shield"
+        self.armor = {
+            "Head": "Prophet Blindfold",
+            "Chest": "Prophet Robe",
+            "Legs": "Prophet Trousers"
+        }
+    def display_title(self):
+        print("=" * 30)
+        print("    Prophet Class    ")
+        print("=" * 30) 
+    def display_stats(self):
+        self.display_title()
+        stats = {
+             "Level": self.level,
+            "Vigor": self.vigor,
+            "Mind": self.mind,
+            "Endurance": self.endurance,
+            "Strength": self.strength,
+            "Dexterity": self.dexterity,
+            "Intelligence": self.intelligence,
+            "Faith": self.faith,
+            "Arcane": self.arcane,
+        }
+        max_length = max(len(key) for key in stats.keys())
 
+        print("+" + "-" * (max_length +10) + "+")
+        for stat, value in stats.items():
+            print(f"| {stat.ljust(max_length)} : {str(value).rjust(4)} |")
+        print("+" + "-" * (max_length + 10) + "+")
+
+    def display_equipment(self):
+        print("\nEquipped:")
+        print("\nWeapons & Shield:")
+        for weapon in self.weapons:
+            print(f" - {weapon}")
+        print(f" - {self.shield}")
+
+        print("\nArmor:")
+        for part, piece in self.armor.items():
+            print(f" - {piece} ({part})")
 
 class Player:
     def __init__(self, name="Tarnished", vigor=10, endurance=10, mind=10, strength=10, dexterity=10, intelligence=10, faith=10, arcane=10):
