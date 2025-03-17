@@ -114,3 +114,28 @@ def display_inventory():
         else:
             print("\nInvalid choice, try again.")
             time.sleep(1)
+            
+            
+def apply_talisman_effect():
+    """Applies the equipped talisman's effect to the player."""
+    if player.equipped_talisman:
+        effect = talismans[player.equipped_talisman]["effect"]
+        
+        if "Stamina Recovery" in effect:
+            player.stamina_regen_rate = 10  
+        elif "Damage to Charged Attacks" in effect:
+            player.attack_bonus = 1.15  
+        elif "Restores HP" in effect:
+            player.hp_regen = 1  
+            
+            
+            
+            
+            
+
+        
+        
+        
+            
+            
+            
