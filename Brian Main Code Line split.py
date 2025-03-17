@@ -382,7 +382,16 @@ equipped_items = {
     "talisman": None,
 }
 
-
+def add_to_inventory(category, item_name, quantity=1):
+    if category == "potions":
+        if item_name in player_inventory["potions"]:
+            player_inventory["potions"][item_name] += quantity
+        else:
+            player_inventory["potions"][item_name ] = quantity
+    else:
+        if item_name not in player_inventory[category]:
+            player_inventory[category].append(item_name)
+    print(f"{item_name} has been added to your {category} inventory")
         
               
          
