@@ -15,7 +15,108 @@ import time
 import sys
 import select
 
+def play_cutscene():
+    cutscene_text = [
+        "The Lands Between...",
+        "Once ruled by the Elden Ring, the Golden Order is now no more.",
+        "The shattered fragments of the ring are scattered, and the once bountiful Lands Between are now consumed by corruption.",
+        "You, the Tarnished, are banished from the Grace of the Golden Order...",
+        "And now you are called to rise once again."
+    ]
+    fade_in_text(cutscene_text)
+    time.sleep(2)
+    os.system("cls" if os.name =="nt" else "clear")
 
+class Warrior:
+    def __init__(self):
+        self.level = 8
+        self.vigor = 11
+        self.mind = 12
+        self.endurance = 11
+        self.strength = 10
+        self.dexterity = 16
+        self.intelligence = 10
+        self.faith = 8
+        self.arcane = 9
+        self.weapons = ["Scimitar", "Scimitar"]
+        self.shield = "Riveted Wooden Shield"
+        self.armor = {
+
+            "Head": "Blue Cowl",
+            "Chest": "Blue Cloth Vest",
+            "Hands": "Warrior Gauntlets",
+            "Legs": "Warrior Greaves"
+        }
+                    
+    def display_title(self):
+        print("=" * 30)
+        print("    Warrior Class   ")
+        print("=" * 30)
+                    
+    def display_stats(self):
+        self.display_title()
+        stats = {
+            "Level": self.level,
+            "Vigor": self.vigor,
+            "Mind": self.mind,
+            "Endurance": self.endurance,
+            "Strength": self.strength,
+            "Dexterity": self.dexterity,
+            "Intelligence": self.intelligence,
+            "Faith": self.faith,
+            "Arcane": self.arcane,
+        }
+        max_length = max(len(key) for key in stats.keys())
+        
+        print(""  "-" * (max_length  10)  "")
+        for stat, value in stats.items():
+                print(f"| stat.ljust(max_length) : str(value).rjust(4) |")
+                print(""  "-" * (max_length  10)  "")
+                                                 
+    def display_equipment(self):
+        print("\nEquipped:")
+        print("\nWeapons & Shield:")
+        for weapon in self.weapons:
+            print(f" - weapon")
+        print(f" - self.shield")
+        
+        print("\nArmor:")
+        for part, piece in self.armor.items():
+            print(f" - piece (part)")
+
+def merchant_kale():
+    """Handles interactions with Merchant Kale."""
+    while True:
+        os.system("cls" if os.name == "nt" else "clear")
+        print("\nYou approach Merchant Kale.")
+        print("\nWelcome, traveler What would you like to buy?")
+        print("\n1. Smithing Stone (1) - 100 Runes")
+        print("2. Smithing Stone (2) - 100 Runes")
+        print("3. Smithing Stone (3) - 100 Runes")
+        print("4. Smithing Stone (4) - 100 Runes")
+        print("5. Smithing Stone (5) - 100 Runes")
+        print("6. Exit Merchant Kale")
+                        
+        choice = input("\nSelect an option: ").strip()
+                        
+        if choice in ["1", "2", "3", "4", "5"]:
+            stone_level = int(choice)  
+            if player.runes >= 100:
+                player.runes -= 100  
+                player.smithing_stones[stone_level] = 1  
+                print(f"\nYou purchased a Smithing Stone (stone_level).")
+                print(f"Remaining Runes: player.runes")
+            else:
+                print("\nNot enough runes.")
+            input("\nPress Enter to continue...")
+                                                                                
+        elif choice == "6":
+            os.system("cls" if os.name == "nt" else "clear")  
+            break  
+                        
+        else:
+            print("\nInvalid option. Try again.")
+            input("\nPress Enter to continue...")
 
 def encounter_tree_sentinel():
 
