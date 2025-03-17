@@ -14,6 +14,34 @@ import random
 import time
 import sys
 import select
+def church_of_marika():
+    """Church of Marika main navigation menu."""
+    os.system("cls" if os.name == "nt" else "clear")
+
+    print("\nYou arrive at the Church of Marika.")
+    print("The Light of Grace glows softly, inviting you to rest.")
+    print("Nearby, Merchant Kale watches you curiously, and a Smithing Table sits in the corner.")
+    
+    while True:
+        print("\nWhat would you like to do?")
+        print("1. Light of Grace (Heal & Upgrade)")
+        print("2. Talk to Merchant Kale (Buy Smithing Stones)")
+        print("3. Use the Smithing Table (Upgrade Weapons)")
+        print("4. Leave the Church")
+        
+        choice = input("\nSelect an option: ").strip()
+
+        if choice == "1":
+            light_of_grace()
+        elif choice == "2":
+            merchant_kale()
+        elif choice == "3":
+            smithing_table()
+        elif choice == "4":
+            leave_church()
+            break  # Exit the menu and move forward
+        else:
+            print("\nInvalid option. Try again.")
 
 def play_cutscene():
     cutscene_text = [
