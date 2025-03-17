@@ -475,6 +475,7 @@ def smithing_table():
             print("\nInvalid option. Try again.")
 
 def light_of_grace():
+
     """Handles healing, upgrades, and inventory access."""
     os.system("cls" if os.name == "nt" else "clear")
     print("\nYou rest at the Light of Grace.")
@@ -509,3 +510,5 @@ def light_of_grace():
         else:
             print("\nInvalid option. Try again.")
             input("\nPress Enter to continue...")
+
+            

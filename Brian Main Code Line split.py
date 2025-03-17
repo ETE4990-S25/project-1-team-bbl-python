@@ -131,7 +131,7 @@ def upgrade_attributes():
            if player.runes >= 100:
                player.runes -= 100
 
-         if choice == "1":
+        if choice == "1":
             player.vigor += 1
             player.max_hp = player.vigor * 10
             print("\nYour Vigor has increased.")
