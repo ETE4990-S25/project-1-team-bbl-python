@@ -416,6 +416,36 @@ def tree_lined_oasis():
         else:
             print("\nIndecision will not save you. Choose.")
 
+def smithing_table():
+    """Handles weapon upgrades."""
+    os.system("cls" if os.name == "nt" else "clear")
+    print("\nYou stand before the Smithing Table.")
+    
+    while True:
+        print("\nYour weapon is currently at level +", player.weapon_level)
+        print("1. Upgrade Weapon (+1) (Cost: 100 Runes)")
+        print("2. Return to the Church")
+        
+        choice = input("\nSelect an option: ").strip()
+
+        if choice == "1":
+            if player.runes >= 100 and player.weapon_level < 5:
+                if player.smithing_stones[player.weapon_level + 1] > 0:
+                    player.runes -= 100
+                    player.smithing_stones[player.weapon_level + 1] -= 1
+                    player.weapon_level += 1
+                    print(f"\nYour weapon is now +{player.weapon_level}!")
+                else:
+                    print("\nYou don't have a Smithing Stone for this upgrade!")
+            elif player.weapon_level >= 5:
+                print("\nYour weapon is already at max level (+5)!")
+            else:
+                print("\nNot enough runes!")
+        elif choice == "2":
+            break
+        else:
+            print("\nInvalid option. Try again.")
+
 def light_of_grace():
     """Handles healing, upgrades, and inventory access."""
     os.system("cls" if os.name == "nt" else "clear")
