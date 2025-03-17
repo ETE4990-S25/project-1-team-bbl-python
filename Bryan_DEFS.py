@@ -553,3 +553,52 @@ if __name__ == "__main__":
         input()
         encounter_skeleton()
         
+def detect_dodge():
+    """Waits for the player to press Enter within the dodge window and records reaction time."""
+    start_time = time.time()
+    dodge_window = 1.5
+
+    print("\nPress [Enter] to dodge!")
+
+    while time.time() - start_time < dodge_window:
+        elapsed_time = time.time() - start_time
+        remaining_time = max(0, dodge_window - elapsed_time)
+
+        print(f"\r{remaining_time:.2f} seconds left! Press [Enter] to dodge!  ", end="", flush=True)
+
+        if sys.platform == "win32":
+            import msvcrt
+            if msvcrt.kbhit():
+                key = msvcrt.getch().decode("utf-8")
+                if key == "\r":
+                    return elapsed_time
+        else:
+            i, o, e = select.select([sys.stdin], [], [], 0.1)
+            if i:
+                key = sys.stdin.read(1)
+                if key == "\n":
+                    return elapsed_time
+
+    print("\nYou failed to dodge in time!")
+    return None
+
+def evaluate_dodge(dodge_time, attack_damage):
+    """Determines the outcome of the dodge based on reaction timing."""
+    if dodge_time is None:
+        damage_taken = attack_damage
+        result = f"You failed to dodge! You take {damage_taken} damage."
+    elif 0.00 <= dodge_time <= 0.50:        
+        damage_taken = attack_damage // 2
+        result = "Early Dodge! You take {damage_taken} damage."
+    elif 0.51 <= dodge_time <= 1.00:
+        damage_taken = 0
+        result = f"Perfect Dodge! No damage taken."
+    elif 1.01 <= dodge_time <= 1.50:
+        damage_taken = attack_damage
+        result = f"Late Dodge! You take {damage_taken} damage."
+    else:
+        damage_taken = attack_damage
+        result = "You failed to react in time! Full damage taken."
+
+    print(result)
+    return damage_taken
