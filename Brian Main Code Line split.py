@@ -364,7 +364,23 @@ if __name__ == "__main__":
         input()
         encounter_skeleton()
         
+player_inventory = {
+    "weapons": [],
+    "armor": [],
+    "talismans": [],
+    "potions": {
+        "Healing Potion": 3,
+        "Mana Potion": 1
+    },
+    "items": []  #category to store loot drops
+}
 
+#Stored equipped items
+equipped_items = {
+    "weapon": None,
+    "armor": None,
+    "talisman": None,
+}
 
 
         
