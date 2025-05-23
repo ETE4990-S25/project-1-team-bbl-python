@@ -436,6 +436,7 @@ def encounter_enemy(enemy):
             print("[1] Return to the Site of Grace (Recommended)")
             print("[2] Continue Exploring")
             print("[3] Select a Different Area")
+            print("[4] Go to the Church of Marika")
 
             choice = input("\nEnter your choice: ").strip()
 
@@ -450,6 +451,10 @@ def encounter_enemy(enemy):
             elif choice == "3":
                 print("\nYou look around, deciding where to go next...")
                 leave_church()  # **Go back to area selection**
+                return
+            elif choice == "4":
+                print("\nYou return to the Church of Marika.")
+                church_of_marika()
                 return
             else:
                 print("\nInvalid option. Try again.")
