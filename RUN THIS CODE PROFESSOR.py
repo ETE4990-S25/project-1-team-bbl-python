@@ -9,7 +9,6 @@ from enemy_data import TreeSentinel
 from enemy_data import Skeleton
 import os
 import random
-import random
 import time
 import sys
 import select
@@ -431,7 +430,7 @@ def encounter_enemy(enemy):
 
         print("\nThe item has been added to your inventory.")
 
-        # **Post-Fight Decision Menu (Now Works Correctly)**
+        # **Post-Fight Decision Menu**
         while True:
             print("\nWhat would you like to do?")
             print("[1] Return to the Site of Grace (Recommended)")
@@ -649,7 +648,7 @@ def leave_church():
             print("\nYou travel to the Castle Ruins...")
             input("\nPress Enter to continue...")
             os.system("cls" if os.name == "nt" else "clear")
-            castle_ruins()  # CALLS the function
+            castle_ruins()  # calls the function
             return  # Ensure the function exits after choosing a location
 
         elif choice == "2":
