@@ -1,0 +1,514 @@
+
+from weapon_data import weapons
+from armor_data import armor
+from talismans_data import talismans
+from enemy_data import Bandit 
+from enemy_data import Footman
+from enemy_data import Knight
+from enemy_data import Soldier
+from enemy_data import TreeSentinel
+from enemy_data import Skeleton
+import os
+import random
+import random
+import time
+import sys
+import select
+def church_of_marika():
+    """Church of Marika main navigation menu."""
+    os.system("cls" if os.name == "nt" else "clear")
+
+    print("\nYou arrive at the Church of Marika.")
+    print("The Light of Grace glows softly, inviting you to rest.")
+    print("Nearby, Merchant Kale watches you curiously, and a Smithing Table sits in the corner.")
+    
+    while True:
+        print("\nWhat would you like to do?")
+        print("1. Light of Grace (Heal & Upgrade)")
+        print("2. Talk to Merchant Kale (Buy Smithing Stones)")
+        print("3. Use the Smithing Table (Upgrade Weapons)")
+        print("4. Leave the Church")
+        
+        choice = input("\nSelect an option: ").strip()
+
+        if choice == "1":
+            light_of_grace()
+        elif choice == "2":
+            merchant_kale()
+        elif choice == "3":
+            smithing_table()
+        elif choice == "4":
+            leave_church()
+            break  # Exit the menu and move forward
+        else:
+            print("\nInvalid option. Try again.")
+
+def play_cutscene():
+    cutscene_text = [
+        "The Lands Between...",
+        "Once ruled by the Elden Ring, the Golden Order is now no more.",
+        "The shattered fragments of the ring are scattered, and the once bountiful Lands Between are now consumed by corruption.",
+        "You, the Tarnished, are banished from the Grace of the Golden Order...",
+        "And now you are called to rise once again."
+    ]
+    fade_in_text(cutscene_text)
+    time.sleep(2)
+    os.system("cls" if os.name =="nt" else "clear")
+
+class Warrior:
+    def __init__(self):
+        self.level = 8
+        self.vigor = 11
+        self.mind = 12
+        self.endurance = 11
+        self.strength = 10
+        self.dexterity = 16
+        self.intelligence = 10
+        self.faith = 8
+        self.arcane = 9
+        self.weapons = ["Scimitar", "Scimitar"]
+        self.shield = "Riveted Wooden Shield"
+        self.armor = {
+
+            "Head": "Blue Cowl",
+            "Chest": "Blue Cloth Vest",
+            "Hands": "Warrior Gauntlets",
+            "Legs": "Warrior Greaves"
+        }
+                    
+    def display_title(self):
+        print("=" * 30)
+        print("    Warrior Class   ")
+        print("=" * 30)
+                    
+    def display_stats(self):
+        self.display_title()
+        stats = {
+            "Level": self.level,
+            "Vigor": self.vigor,
+            "Mind": self.mind,
+            "Endurance": self.endurance,
+            "Strength": self.strength,
+            "Dexterity": self.dexterity,
+            "Intelligence": self.intelligence,
+            "Faith": self.faith,
+            "Arcane": self.arcane,
+        }
+        max_length = max(len(key) for key in stats.keys())
+        
+        print(""  "-" * (max_length  10)  "")
+        for stat, value in stats.items():
+                print(f"| stat.ljust(max_length) : str(value).rjust(4) |")
+                print(""  "-" * (max_length  10)  "")
+                                                 
+    def display_equipment(self):
+        print("\nEquipped:")
+        print("\nWeapons & Shield:")
+        for weapon in self.weapons:
+            print(f" - weapon")
+        print(f" - self.shield")
+        
+        print("\nArmor:")
+        for part, piece in self.armor.items():
+            print(f" - piece (part)")
+
+def merchant_kale():
+    """Handles interactions with Merchant Kale."""
+    while True:
+        os.system("cls" if os.name == "nt" else "clear")
+        print("\nYou approach Merchant Kale.")
+        print("\nWelcome, traveler What would you like to buy?")
+        print("\n1. Smithing Stone (1) - 100 Runes")
+        print("2. Smithing Stone (2) - 100 Runes")
+        print("3. Smithing Stone (3) - 100 Runes")
+        print("4. Smithing Stone (4) - 100 Runes")
+        print("5. Smithing Stone (5) - 100 Runes")
+        print("6. Exit Merchant Kale")
+                        
+        choice = input("\nSelect an option: ").strip()
+                        
+        if choice in ["1", "2", "3", "4", "5"]:
+            stone_level = int(choice)  
+            if player.runes >= 100:
+                player.runes -= 100  
+                player.smithing_stones[stone_level] = 1  
+                print(f"\nYou purchased a Smithing Stone (stone_level).")
+                print(f"Remaining Runes: player.runes")
+            else:
+                print("\nNot enough runes.")
+            input("\nPress Enter to continue...")
+                                                                                
+        elif choice == "6":
+            os.system("cls" if os.name == "nt" else "clear")  
+            break  
+                        
+        else:
+            print("\nInvalid option. Try again.")
+            input("\nPress Enter to continue...")
+
+def encounter_tree_sentinel():
+
+        """Handles the battle against the Tree Sentinel, ensuring proper mechanics."""
+        global player  
+        os.system("cls" if os.name == "nt" else "clear")
+        print("\nThe Tree Sentinel stands in your path, its golden armor gleaming under the sun.")
+        print("Without hesitation, it prepares to strike.")
+        input("\nPress Enter to face the Tree Sentinel...")
+        tree_sentinel = TreeSentinel()
+
+        while tree_sentinel.hp > 0 and player.hp > 0:
+            os.system("cls" if os.name == "nt" else "clear")
+            print(f"\nBoss: tree_sentinel.name | HP: [tree_sentinel.hp/tree_sentinel.max_hp]")
+            print(f"Your HP: [player.hp/player.max_hp] | Stamina: [player.stamina/player.max_stamina]")
+            print("\nActions: [1] Light Attack | [2] Heavy Attack | [3] Block | [4] Use Potion | [5] Flee")
+                        
+            choice = input("\nSelect an action: ").strip()
+            if choice == "1":
+                damage, message = player.attack("light")
+                print(f"\nmessage")  
+                tree_sentinel.take_damage(damage, "light")
+            
+            elif choice == "2":
+                damage, message = player.attack("heavy")
+                print(f"\nmessage")  
+                tree_sentinel.take_damage(damage, "heavy")
+
+            elif choice == "3":  #Block
+                print("\nYou raise your shield and brace for impact.")
+                time.sleep(1)
+                reduced_damage = player.block(tree_sentinel)
+                print(f"\nYou blocked the attack and took reduced_damage damage.")
+                input("\nPress Enter to continue...")
+                continue
+
+            elif choice == "4": #use potion
+                if player.use_potion():
+                    print(f"\nYou now have {player.hp}/{player.max_hp} HP remaining.")
+                else:
+                    print("\nNo potions left")
+                    input("\nPress Enter to continue...")
+                    continue
+            elif choice == "5":  # **Flee Always Fails & Deals Full Damage**
+                print("\nYou attempt to flee, but the Tree Sentinel charges forward—ESCAPE IS IMPOSSIBLE")
+                attack_damage, attack_message = tree_sentinel.attack()
+                print(attack_message)
+                player.hp -= attack_damage   #Full damage taken
+                print(f"\nYou take attack_damage damage as punishment for trying to flee")
+                input("\nPress Enter to continue...")
+                continue
+
+             #**Tree Sentinel's Turn (You Can Still Dodge Normally)**'
+            if tree_sentinel.hp > 0:
+                print("\nThe Tree Sentinel prepares to strike")
+                attack_damage, attack_message = tree_sentinel.attack()
+                print(attack_message)
+            
+                dodge_time = detect_dodge()
+                damage_taken = evaluate_dodge(dodge_time, attack_damage)
+                
+                if damage_taken == 0:
+                    print("\nYou evade the attack with perfect timing")
+                else:
+                    print(f"\nThe Tree Sentinel's attack lands You take damage_taken damage.")
+                    player.hp -= damage_taken
+            #Force plater to site of grace after death
+            if player.hp <= 0:
+                print("\nYou have been defeated... The world fades to black.")
+                input("\nPress Enter to return to the Light of Grace...")
+                light_of_grace()   #**FORCE player to Site of Grace**
+                return #Exit after immediately
+            
+            input("\nPress Enter to continue")
+        #If player wins
+        if tree_sentinel.hp <= 0:
+            print("\nThe Tree Sentinel collapses, its massive form crashing to the ground.")
+            print("\nYou have defeated the Tree Sentinel")
+            print("\nYou gained 1000 runes")
+            player.runes = 1000
+            
+            loot = tree_sentinel.drop_loot()
+            if loot:
+                 print(f"You found a loot")
+            print("\nThe overwhelming silence returns... You should return to the Light of Grace.")
+
+            #post fight menu
+            while True:
+                print("\nWhat would you like to do?")
+                print("[1] Return to the Site of Grace (Recommended)")
+                print("[2] Continue Exploring")
+                print("[3] Select a Different Area")
+
+                choice = input("\nEnter your choice: ").strip()
+
+                if choice == "1":
+                    print("\nYou return to the Light of Grace to recover and upgrade.")
+                    light_of_grace()  
+                    return
+                elif choice == "2":
+                        print("\nYou remain in the field, ready for your next challenge.")
+                        leave_church()  
+                        return
+                elif choice == "3":
+                    print("\nYou look around, deciding where to go next...")
+                    leave_church()  
+                    return
+                else:
+                    print("\nInvalid option. Try again.")
+
+def encounter_skeleton():
+    """Starts the battle sequence against the skeleton with a brief introduction."""
+    os.system("cls" if os.name == "nt" else "clear")
+
+    #Skeleton intro scene
+    print("\nAs you step forward, the air grows cold...")
+    time.sleep(1)
+    print("\nA chilling presence looms nearby.")
+    time.sleep(1)
+    print("\nFrom the shadows, bones rattle, and a skeletal warrior emerges")
+    print("\nIts hollow eyes lock onto you as it raises a rusted blade.")
+    input("\nPress [Enter] to prepare for battle...")
+
+    #clearing screen before battle
+    os.system("cls" if os.name == "nt" else "clear")
+
+    skeleton = Skeleton()
+
+    while skeleton.hp > 0 and player.hp > 0:
+        os.system("cls" if os.name == "nt" else "clear")
+
+        #show updated stats
+        player.display_bars()
+        print(f"\nEnemy: skeleton.name | HP: [skeleton.hp/skeleton.max_hp]")
+
+        print("\nActions: [1] Light Attack | [2] Heavy Attack | [3] Block | [4] Use Potion | [5] Flee | [6] Quit")
+        action = input("\nSelect an action: ").strip()
+
+        if action == "6":
+            print("\nYou fled from battle.")
+            return        
+        
+        #handle attacks
+        if action == "1":
+            damage, message = player.attack("light")
+            print(f"\nmessage")
+            skeleton.take_damage(damage, "light")
+            time.sleep(1)
+
+        elif action == "2":
+            damage, message = player.attack("heavy")
+            print(f"\nmessage")
+            skeleton.take_damage(damage, "heavy")
+            time.sleep(1)
+
+        if skeleton.hp <= 0:
+            print("\nThe Skeleton collapses into a pile of bones. Enemy Slain.")
+            player.runes = 100  
+            print(f"\nYou gained 100 runes Total Runes: player.runes")
+
+            print("\nPress Enter to continue forward...")
+            input() 
+            os.system("cls" if os.name == "nt" else "clear")
+            church_of_marika()
+            return
+
+        #**Blocking**
+        if action == "3":  
+            print("\nYou raise your shield and brace for impact.")
+            time.sleep(1)
+            reduced_damage = player.block(skeleton)  
+            print(f"\nYou blocked the attack and took reduced_damage damage.")
+            
+            input("\nPress Enter to continue...")
+            continue   #Skips the enemy's turn'
+
+
+            #**Using Potion**'
+                        
+        elif action == "4":
+            if player.use_potion():
+                print(f"\nYou now have {player.hp}/{player.max_hp} HP remaining.")
+            else:
+                print("\nNo potions left")                        
+            input("\nPress Enter to continue...")
+            continue  
+                         
+             # **Flee Attempt (Fails 50% of the Time)**
+                        
+        elif action == "5":
+            if random.random() < 0.5:
+                print("\nYou successfully flee to the Light of Grace")
+                input("\nPress Enter to continue...")
+                light_of_grace()
+                return
+            else:
+                print("\nFailed to flee The Skeleton slashes at you as you turn your back")
+                attack_damage, attack_message = skeleton.attack()
+                print(attack_message)
+
+def open_inventory():
+
+    global player_inventory
+    print("\n **Inventory**")
+    print("====================")
+    print(" Weapons:", player_inventory["weapons"] if player_inventory["weapons"] else "None")
+    print(" Armor:", player_inventory["armor"] if player_inventory["armor"] else "None")
+    print( "Talismans:", player_inventory["talismans"] if player_inventory["talismans"] else "None")
+    print(" Potions:")
+    for potion, qty in player_inventory["potions"].items():
+        print(f"   -{potion}: {qty}")
+    print("====================")
+    input("\nPress Enter to close inventory...")
+
+def dungeons():
+    """Handles the randomized dungeon chest selection."""
+    os.system("cls" if os.name == "nt" else "clear")
+    print("\nYou enter the dimly lit dungeon, the air damp and heavy with mystery.")
+    print("Before you, four ancient chests rest in the gloom, their contents unknown.")
+
+    #assigns talismans to labels, and I added the randomized chest positions
+    talisman_keys = list(talismans.keys())
+    random.shuffle(talisman_keys)   #Shuffle the actual talismans
+    chest_contents = ["trap"] + talisman_keys  # 1 trap  3 randomized talismans
+    random.shuffle(chest_contents)   #Shuffle their placement in the chest_contents
+    
+    opened_chests = set()   #Tracks which chests have been opened
+    while True:
+        print("\nChests: [1] [2] [3] [4]")
+        choice = input("\nChoose a chest to open (1-4) or type 'leave' to return: ").strip().lower()
+        
+        if choice == "leave":
+            print("\nYou step away from the chests and return to the dungeon entrance.")
+            input("\nPress Enter to continue...")
+            leave_church()   #Return to area selection instead of quitting
+            return
+        if choice not in ["1", "2", "3", "4"]:
+            print("\nInvalid choice. Choose a chest between 1 and 4.")
+            continue
+        
+        chest_number = int(choice) - 1
+        if chest_number in opened_chests:
+            print("\nYou've already opened this chest. Choose another.")
+            continue
+        opened_chests.add(chest_number)
+        result = chest_contents[chest_number]
+
+        if result == "trap":
+            print("\nAs you lift the lid, a sudden burst of light engulfs you")
+            print("A powerful force pulls you away...")
+            input("\nPress Enter to continue...")
+            encounter_tree_sentinel() #Triggers boss battle
+            return
+        
+        else:
+            talisman_key = result  # The shuffled talisman KeyboardInterrupt
+            print(f"\nYou open the chest and find the **{talisman_key}**!")
+            print(f"\n{talismans[talisman_key]['description']}")
+            player_inventory["talismans"].append(talisman_key)
+            print("\nThe talisman has been added to your inventory.")
+                         
+        if len(opened_chests) == 4:
+            print("\nYou have opened all the chests. There's nothing left here.")
+            input("\nPress Enter to return to the dungeon entrance...")
+            leave_church()   #Return to area selection
+            return
+
+def tree_lined_oasis():
+    """Handles entry into the Tree-Lined Oasis and sets up the encounter with the Tree Sentinel."""
+    os.system("cls" if os.name == "nt" else "clear")
+    print("\nYou step into the Tree-Lined Oasis.")
+    print("The air is still, too peaceful. The only sound is the distant rustling of leaves.")
+    print("Ahead, golden armor catches the light. A knight—silent, unmoving—watches.")
+    print("No roar. No battle cry. Just quiet, suffocating tension.")
+    print("The ground trembles beneath you, as if warning you to turn back.")
+    print("\nA message lingers in your mind:")
+    print("   'An impossible fight lies ahead. Do you continue?'")
+
+    while True:
+        print("\n[1] Face the Tree Sentinel.")
+        print("[2] Return to the Site of Grace.")
+        
+        choice = input("\nWhat will you do? ").strip()
+        
+        if choice == "1":
+            print("\nYou step forward. The Tree Sentinel lowers his halberd.")
+            print("The silence breaks.")
+            input("\nPress Enter to face him...")
+            encounter_tree_sentinel()
+            break
+        elif choice == "2":
+            print("\nYou hesitate, then turn back. Some battles are not meant to be fought yet.")
+            input("\nPress Enter to return to the Site of Grace...")
+            light_of_grace()
+            break
+
+        else:
+            print("\nIndecision will not save you. Choose.")
+
+def smithing_table():
+    """Handles weapon upgrades."""
+    os.system("cls" if os.name == "nt" else "clear")
+    print("\nYou stand before the Smithing Table.")
+    
+    while True:
+        print("\nYour weapon is currently at level +", player.weapon_level)
+        print("1. Upgrade Weapon (+1) (Cost: 100 Runes)")
+        print("2. Return to the Church")
+        
+        choice = input("\nSelect an option: ").strip()
+
+        if choice == "1":
+            if player.runes >= 100 and player.weapon_level < 5:
+                if player.smithing_stones[player.weapon_level + 1] > 0:
+                    player.runes -= 100
+                    player.smithing_stones[player.weapon_level + 1] -= 1
+                    player.weapon_level += 1
+                    print(f"\nYour weapon is now +{player.weapon_level}!")
+                else:
+                    print("\nYou don't have a Smithing Stone for this upgrade!")
+            elif player.weapon_level >= 5:
+                print("\nYour weapon is already at max level (+5)!")
+            else:
+                print("\nNot enough runes!")
+        elif choice == "2":
+            break
+        else:
+            print("\nInvalid option. Try again.")
+
+def light_of_grace():
+
+    """Handles healing, upgrades, and inventory access."""
+    os.system("cls" if os.name == "nt" else "clear")
+    print("\nYou rest at the Light of Grace.")
+    print("Your health, stamina, and FP are fully restored.") 
+    
+    #Fully restore the player's stats
+    player.hp = player.max_hp
+    player.stamina = player.max_stamina
+    player.fp = player.max_fp
+
+    print("\n[All stats restored.]")
+
+    while True:
+        os.system("cls" if os.name == "nt" else "clear")  
+        print("\nYou are at the Light of Grace. What would you like to do?")
+        print("1. Upgrade Attributes (Cost: 100 Runes)")
+        print("2. Open Inventory (Equip Weapons, Armor, Talismans, Use Potions)")
+        print("3. Exit Light of Grace")
+
+        choice = input("\nSelect an option: ").strip()
+
+        if choice == "1":
+            upgrade_attributes()
+
+        elif choice == "2":
+            display_inventory() 
+            
+        elif choice == "3":
+            print("\nYou step away from the Light of Grace, ready to continue your journey.")
+            leave_church()   #Ensures the player is correctly sent to area selection
+            return   #Properly exits the function
+        else:
+            print("\nInvalid option. Try again.")
+            input("\nPress Enter to continue...")
+
+            
